@@ -15,6 +15,7 @@ class UploadImageTest extends TestCase
     /** @test **/
     public function a_user_can_upload_image_and_make_new_post()
     {
+        $this->withoutExceptionHandling();
         Storage::fake('public');
         $image = UploadedFile::fake()->image('test.jpg');
 

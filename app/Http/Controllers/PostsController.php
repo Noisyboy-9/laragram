@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -32,13 +33,19 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Post $post)
     {
+//        validate the request for any images
         $request->validate([
             'image' => 'required|file|image|mimes:jpeg,png'
         ]);
 
-       $request->file('image')->storeAs('/images' , $request->file('image')->hashName(), 'public');
+//        save uploaded image in a file
+       $imagePath = $request->file('image')->storeAs('/images' , $request->file('image')->hashName(), 'public');
+
+//       save image path in database
+       $post->path = $imagePath;
+       $post->save();
     }
 
     /**
