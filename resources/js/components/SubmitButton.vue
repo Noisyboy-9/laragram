@@ -1,5 +1,5 @@
 <template>
-    <button type="submit" class="btn" @click="emit('submited')" :class="style">{{ text }}</button>
+    <button type="submit" class="btn" @click="clicked" :class="style">{{ text }}</button>
 </template>
 
 <script>
@@ -12,7 +12,11 @@
                 style : '',
             }
         },
-
+        methods: {
+          clicked() {
+              this.$emit('submited');
+          }
+        },
         mounted() {
             this.style = 'btn--' + this.type
         }

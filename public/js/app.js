@@ -1854,12 +1854,30 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FileUploader",
+  data: function data() {
+    return {
+      file: ''
+    };
+  },
   components: {
     InputFile: _InputFile__WEBPACK_IMPORTED_MODULE_0__["default"],
     SubmitButton: _SubmitButton__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: ['filed'],
-  methods: {}
+  methods: {
+    submitForm: function submitForm() {
+      var data = new FormData();
+      data.append('image', this.file);
+      axios.post('/posts', data).then(function (res) {
+        return console.log(res.status);
+      })["catch"](function (err) {
+        return console.error(err);
+      });
+    },
+    storeData: function storeData(file) {
+      this.file = file;
+    }
+  }
 });
 
 /***/ }),
@@ -1882,7 +1900,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InputFile",
-  props: ['filed']
+  props: ['filed'],
+  methods: {
+    change: function change(e) {
+      this.$emit('fileUploaded', e.target.files[0]);
+    }
+  }
 });
 
 /***/ }),
@@ -1907,6 +1930,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       style: ''
     };
+  },
+  methods: {
+    clicked: function clicked() {
+      this.$emit('submited');
+    }
   },
   mounted: function mounted() {
     this.style = 'btn--' + this.type;
@@ -37214,7 +37242,10 @@ var render = function() {
       "div",
       { staticClass: "form" },
       [
-        _c("input-file", { attrs: { for: _vm.filed } }),
+        _c("input-file", {
+          attrs: { for: _vm.filed },
+          on: { fileUploaded: _vm.storeData }
+        }),
         _vm._v(" "),
         _c("submit-button", {
           attrs: { type: "primary", text: "Upload" },
@@ -37249,7 +37280,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "label",
-    { staticClass: "form__upload--label", attrs: { for: _vm.filed } },
+    {
+      staticClass: "form__upload--label",
+      attrs: { for: _vm.filed },
+      on: { change: _vm.change }
+    },
     [
       _vm._v("\n    +\n    "),
       _c("input", {
@@ -37287,11 +37322,7 @@ var render = function() {
       staticClass: "btn",
       class: _vm.style,
       attrs: { type: "submit" },
-      on: {
-        click: function($event) {
-          return _vm.emit("submited")
-        }
-      }
+      on: { click: _vm.clicked }
     },
     [_vm._v(_vm._s(_vm.text))]
   )

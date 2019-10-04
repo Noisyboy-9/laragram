@@ -1,5 +1,5 @@
 <template>
-    <label :for="filed" class="form__upload--label">
+    <label :for="filed" @change="change" class="form__upload--label">
         +
         <input :name="filed" class="u-hidden" :id="filed" type="file">
     </label>
@@ -8,6 +8,11 @@
 <script>
     export default {
         name: "InputFile",
-        props: ['filed']
+        props: ['filed'],
+        methods : {
+            change(e) {
+                this.$emit('fileUploaded', e.target.files[0]);
+            }
+        }
     }
 </script>
