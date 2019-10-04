@@ -3,6 +3,11 @@
 
 // BASE
 @import "basics/typography";
+@import "basics/utilities";
 @import "basics/base";
 
-// compoents
+// FORMS
+@import "components/form";
+@import "components/buttons";
+@import "components/gallery";
+

@@ -3,22 +3,24 @@
 @section('title' , 'POSTS')
 
 @section('content')
-    <form class="form" action="/posts" method="POST" enctype="multipart/form-data">
-        @csrf
+    <div class="form__container">
+        <form class="form" action="/posts" method="POST" enctype="multipart/form-data">
+            @csrf
 
-        <div class="form__group">
-            <input name="image" type="file">
-        </div>
+            <label for="image" class="form__upload--label">
+                +
+                <input name="image" class="u-hidden" id="image" type="file">
+            </label>
 
-        <div class="form__group">
             <button type="submit" class="btn btn--primary">Upload</button>
-        </div>
-    </form>
+        </form>
+    </div>
+
 
     <div class="gallery">
         @foreach($posts as $post)
             <div class="gallery__container">
-                <img src="/storage/{{ $post->path }}" alt="Image Gallery">
+                <img src="/storage/{{ $post->path }}" class="gallery__image" alt="Gallery Image">
             </div>
         @endforeach
     </div>
