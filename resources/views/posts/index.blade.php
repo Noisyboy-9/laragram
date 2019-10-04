@@ -3,18 +3,8 @@
 @section('title' , 'POSTS')
 
 @section('content')
-    <div class="form__container">
-        <form class="form" action="/posts" method="POST" enctype="multipart/form-data">
-            @csrf
+    <file-uploader field="image" ></file-uploader>
 
-            <label for="image" class="form__upload--label">
-                +
-                <input name="image" class="u-hidden" id="image" type="file">
-            </label>
-
-            <button type="submit" class="btn btn--primary">Upload</button>
-        </form>
-    </div>
 
 
     <div class="gallery">
