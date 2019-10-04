@@ -1,0 +1,27 @@
+.form {
+    padding: 2.5rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__container {
+        width: 80%;
+        margin: 1.5rem auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem;
+        border: .5rem dashed #565f63;
+    }
+
+    &__upload {
+        &--label {
+            font-size: 6.4rem;
+            color: #8a9397;
+            display: block;
+        }
+    }
+
+}
