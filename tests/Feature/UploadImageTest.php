@@ -4,18 +4,20 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class UploadImageTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithoutMiddleware;
 
     /** @test **/
     public function a_user_can_upload_image_and_make_new_post()
     {
         $this->withoutExceptionHandling();
+
         Storage::fake('public');
         $image = UploadedFile::fake()->image('test.jpg');
 
@@ -44,5 +46,24 @@ class UploadImageTest extends TestCase
         $this->post('/posts', [
             'image' => UploadedFile::fake()->create('test.pdf')
         ])->assertSessionHasErrors(['image']);
+    }
+
+    /** @test **/
+
+    public function a_user_can_see_an_uploaded_image()
+    {
+        $this->withoutExceptionHandling();
+//        given : we have and storage
+//                and a image stored it
+        Storage::fake('public');
+        $image = UploadedFile::fake()->image('test.jpg');
+
+//        when : the user hits /posts end point as a get request
+        $this->post('/posts' , [
+            'image' => $image
+        ]);
+
+//        then : The photo must be read from storage and be shown to him
+        $this->get('/posts')->assertSee($image->hashName());
     }
 }
