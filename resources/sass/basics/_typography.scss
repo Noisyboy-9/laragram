@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'PT Sans';
+    src: url("/resources/sass/vendors/fonts/PTSans-Bold.ttf") format('.ttf');
+    src: url("/resources/sass/vendors/fonts/PTSans-Italic.ttf") format('.ttf');
+    src: url("/resources/sass/vendors/fonts/PTSans-Regular.ttf") format('.ttf');
+}
+
+body {
+    font-family: 'PT Sans' , sans-serif;
+    font-size: 1.6rem;
+    line-height: 1;
+}

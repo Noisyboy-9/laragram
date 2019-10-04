@@ -1,8 +1,8 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// ABSTRACTS
+@import "abstracts/variables";
 
-// Variables
-@import 'variables';
+// BASE
+@import "basics/typography";
+@import "basics/base";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// compoents
