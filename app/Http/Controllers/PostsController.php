@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 class PostsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of images.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view('posts.index');
     }
 
     /**
