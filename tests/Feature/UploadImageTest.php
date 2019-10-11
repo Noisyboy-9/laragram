@@ -77,5 +77,4 @@ class UploadImageTest extends TestCase
 
         $this->get('/posts')->assertSee($image->hashName());
     }
-
 }
