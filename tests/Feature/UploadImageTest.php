@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class UploadImageTest extends TestCase
 {
-    use RefreshDatabase, WithoutMiddleware;
+    use RefreshDatabase;
 
     /** @test **/
     public function a_user_can_upload_image_and_make_new_post()

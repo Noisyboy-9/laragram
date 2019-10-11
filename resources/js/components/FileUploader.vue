@@ -30,6 +30,7 @@
                 let data = new FormData();
                 data.append('image' , this.file);
 
+
                 axios.post('/posts' , data)
                     .then(res => console.log(res.status))
                     .catch(err => console.error(err));
