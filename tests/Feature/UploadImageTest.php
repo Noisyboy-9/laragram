@@ -3,8 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -49,7 +47,6 @@ class UploadImageTest extends TestCase
     }
 
     /** @test **/
-
     public function a_user_can_see_an_uploaded_image()
     {
         $this->withoutExceptionHandling();
@@ -66,4 +63,5 @@ class UploadImageTest extends TestCase
 //        then : The photo must be read from storage and be shown to him
         $this->get('/posts')->assertSee($image->hashName());
     }
+
 }

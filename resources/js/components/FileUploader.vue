@@ -32,7 +32,7 @@
 
 
                 axios.post('/posts' , data)
-                    .then(res => console.log(res.status))
+                    .then(res => this.$emit('uploaded', res.data))
                     .catch(err => console.error(err));
             },
 

@@ -27,6 +27,9 @@ class PostsController extends Controller
         $post->path = $imagePath;
         $post->save();
 
-        return redirect('/posts');
+        if ($request->wantsJson()) {
+            return $post;
+        }
+        return back();
     }
 }
