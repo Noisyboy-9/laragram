@@ -45,11 +45,14 @@
                             <li class="nav__item">
                                 <a class="nav__link" href="#">{{ Auth::user()->name }}</a>
                             </li>
+
+                            <form action="/logout" method="post">
+                                @csrf
+                                <button class="nav__link" type="submit">Logout</button>
+                            </form>
                         @endguest
                     </ul>
                 </div>
-
-
             </div>
         </nav>
         @yield('content')

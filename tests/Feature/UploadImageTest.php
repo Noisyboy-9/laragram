@@ -23,22 +23,24 @@ class UploadImageTest extends TestCase
     }
 
     /** @test **/
-    public function an_authenticated_user_can_upload_image_and_make_new_post()
+    public function an_authenticated_user_can_upload_image_and_make_new_post_and_path_and_owner_id_is_stored()
     {
-        $this->signIn();
-
+        $user = $this->signIn();
         Storage::fake('public');
 
         $image = UploadedFile::fake()->image('test.jpg');
 
         $this->post('/posts', [
-            'image' => $image
+            'image' => $image,
         ]);
 
         $this->assertCount(1, Storage::disk('public')->files('images'));
 
+        $this->assertCount(1, $user->posts);
+
         $this->assertDatabaseHas('posts' , [
-            'path' => 'images/' . $image->hashName()
+            'path' => 'images/' . $image->hashName(),
+            'owner_id' => $user->id
         ]);
     }
 
