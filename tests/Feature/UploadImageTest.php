@@ -10,13 +10,25 @@ use Tests\TestCase;
 class UploadImageTest extends TestCase
 {
     use RefreshDatabase;
+    /** @test **/
+    public function guests_can_not_make_a_new_post()
+    {
+        Storage::fake('public');
+
+        $image = UploadedFile::fake()->image('test.jpg');
+
+        $this->post('/posts', [
+            'image' => $image
+        ])->assertRedirect('login');
+    }
 
     /** @test **/
-    public function a_user_can_upload_image_and_make_new_post()
+    public function an_authenticated_user_can_upload_image_and_make_new_post()
     {
-        $this->withoutExceptionHandling();
+        $this->signIn();
 
         Storage::fake('public');
+
         $image = UploadedFile::fake()->image('test.jpg');
 
         $this->post('/posts', [
@@ -33,6 +45,8 @@ class UploadImageTest extends TestCase
     /** @test **/
     public function an_image_is_required_for_creating_a_new_post()
     {
+        $this->signIn();
+
         $this->post('/posts' , [
             'image' => null
         ])->assertSessionHasErrors(['image']);
@@ -41,6 +55,8 @@ class UploadImageTest extends TestCase
     /** @test **/
     public function uploaded_file_must_be_an_image()
     {
+        $this->signIn();
+
         $this->post('/posts', [
             'image' => UploadedFile::fake()->create('test.pdf')
         ])->assertSessionHasErrors(['image']);
@@ -49,18 +65,16 @@ class UploadImageTest extends TestCase
     /** @test **/
     public function a_user_can_see_an_uploaded_image()
     {
-        $this->withoutExceptionHandling();
-//        given : we have and storage
-//                and a image stored it
+        $this->signIn();
+
         Storage::fake('public');
+
         $image = UploadedFile::fake()->image('test.jpg');
 
-//        when : the user hits /posts end point as a get request
         $this->post('/posts' , [
             'image' => $image
         ]);
 
-//        then : The photo must be read from storage and be shown to him
         $this->get('/posts')->assertSee($image->hashName());
     }
 

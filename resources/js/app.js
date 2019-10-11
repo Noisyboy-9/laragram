@@ -28,5 +28,5 @@ Vue.component('posts-page', require('./pages/PostsPage').default);
  */
 
 const app = new Vue({
-    el: '#app',
+    el: '#app'
 });
