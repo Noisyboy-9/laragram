@@ -8,5 +8,17 @@
 body {
     font-family: 'PT Sans' , sans-serif;
     font-size: 1.6rem;
-    line-height: 1;
+    line-height: 1.6;
+}
+
+a,
+a:focus,
+a:hover{
+    text-decoration: none;
+    outline: none;
+    border: none;
+}
+
+li {
+    list-style: none;
 }
