@@ -33,4 +33,15 @@ class PostsController extends Controller
         }
         return back();
     }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        if (\request()->wantsJson()) {
+            return $post;
+        }
+
+        return redirect('/posts');
+    }
 }
