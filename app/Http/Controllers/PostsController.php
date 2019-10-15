@@ -9,8 +9,7 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::where('owner_id', auth()->id())->get();
-
+        $posts = auth()->user()->posts;
         return view('posts.index' , compact('posts'));
     }
 

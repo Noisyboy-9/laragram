@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Post;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -10,6 +12,7 @@ use Tests\TestCase;
 class UploadImageTest extends TestCase
 {
     use RefreshDatabase;
+
     /** @test **/
     public function guests_can_not_make_a_new_post()
     {
@@ -65,7 +68,7 @@ class UploadImageTest extends TestCase
     }
 
     /** @test **/
-    public function a_user_can_see_an_uploaded_image()
+    public function a_user_can_see_his_uploaded_images()
     {
         $this->signIn();
 
@@ -78,5 +81,17 @@ class UploadImageTest extends TestCase
         ]);
 
         $this->get('/posts')->assertSee($image->hashName());
+    }
+
+    /** @test **/
+    public function an_authenticated_user_can_not_see_other_users_image()
+    {
+        $user1 = $this->signIn();
+
+        $user2 = factory(User::class)->create();
+        $post = factory(Post::class)->create(['owner_id'=> $user2->id]);
+
+        $this->get('/posts')->assertDontSee($post->path);
+
     }
 }

@@ -10,7 +10,6 @@ use Tests\TestCase;
 class UserTest extends TestCase
 {
     use RefreshDatabase;
-
     /** @test **/
     public function it_may_has_many_posts()
     {
