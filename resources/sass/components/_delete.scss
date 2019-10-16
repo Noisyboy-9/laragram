@@ -1,0 +1,29 @@
+.delete {
+    // styles for animation
+    opacity: 0;
+    display: none;
+    // normal styles
+    width : 100%;
+    height : 100%;
+    background: linear-gradient(rgba(#7d7d7d, .3) 17%, rgba(#7d7d7d, .3) 17%, transparent 25% ,transparent 75% , rgba(#7d7d7d, .3) 83%,rgba(#7d7d7d, .3) 100% );
+    position: absolute;
+
+    &__container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__icon {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        fill: white;
+        display: inline-block;
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: rgba(#7d7d7d, .5);
+        cursor: pointer;
+        border-radius: 3px;
+    }
+}

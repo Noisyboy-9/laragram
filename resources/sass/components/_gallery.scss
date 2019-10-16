@@ -7,6 +7,14 @@
     grid-auto-rows: 300px;
     grid-gap: 2rem;
 
+    &__container {
+        position: relative;
+
+        &:hover .delete {
+            opacity: 1;
+            display: block;
+        }
+    }
     &__image {
         width: 100%;
         height: 100%;
