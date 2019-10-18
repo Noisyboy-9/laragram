@@ -6,6 +6,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/posts/{post}',  'PostsController@destroy');
 });
 
+Route::post('/members/{user}' , 'FollowingsController@store');
+
 Auth::routes();
 
 

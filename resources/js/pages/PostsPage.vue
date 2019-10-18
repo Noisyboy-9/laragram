@@ -3,7 +3,7 @@
         <file-uploader @uploaded="attachToPosts" :field="uploadTitle" ></file-uploader>
 
 
-        <image-gallery :images="data"></image-gallery>
+        <image-gallery @dataChanged="detachFromPosts" :images="data"></image-gallery>
     </div>
 </template>
 
@@ -30,8 +30,21 @@
         methods: {
             attachToPosts(post) {
                 this.data.push(post);
+            },
+
+            detachFromPosts(post) {
+                let newData = [];
+
+                this.data.forEach(oldPost => {
+                    if (oldPost.id !== post.id) {
+                        newData.push(oldPost);
+                    }
+                });
+
+                this.data = newData;
             }
         },
+
 
     }
 </script>
@@ -39,4 +52,4 @@
 <style scoped>
 
 </style>
-`
+

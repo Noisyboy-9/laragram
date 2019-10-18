@@ -36,12 +36,15 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
+        if (auth()->id() != $post->owner_id)  {
+            abort(403);
+        }
+
         $post->delete();
 
         if (\request()->wantsJson()) {
             return $post;
         }
-
         return redirect('/posts');
     }
 }
