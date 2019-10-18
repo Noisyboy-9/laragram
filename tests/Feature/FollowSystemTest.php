@@ -24,5 +24,7 @@ class FollowSystemTest extends TestCase
             'follower' => $user1->id,
             'following' => $user2->id,
         ]);
+
+        $this->assertTrue($user1->isFollowing($user2));
     }
 }

@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         $this->followers()->attach($user);
     }
+
+    public function isFollowing(User $user)
+    {
+        return $this->followers->contains($user);
+    }
 }

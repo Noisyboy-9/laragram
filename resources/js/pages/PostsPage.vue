@@ -1,6 +1,7 @@
-`<template>
+`
+<template>
     <div>
-        <file-uploader @uploaded="attachToPosts" :field="uploadTitle" ></file-uploader>
+        <file-uploader @uploaded="attachToPosts" :field="uploadTitle"></file-uploader>
 
 
         <image-gallery @dataChanged="detachFromPosts" :images="data"></image-gallery>
@@ -10,17 +11,18 @@
 <script>
     import FileUploader from '../components/FileUploader';
     import ImageGallery from "../components/ImageGallery";
+
     export default {
         name: "PostPage",
 
-        components: { FileUploader, ImageGallery },
+        components: {FileUploader, ImageGallery},
 
-        props: ['uploadTitle' , 'posts'],
+        props: ['uploadTitle', 'posts'],
 
         data() {
-          return {
-              data : []
-          }
+            return {
+                data: []
+            }
         },
 
         mounted() {

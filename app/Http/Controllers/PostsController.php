@@ -10,7 +10,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = auth()->user()->posts;
-        return view('posts.index' , compact('posts'));
+        return view('posts.index', compact('posts'));
     }
 
     public function store(Request $request, Post $post)
@@ -21,7 +21,7 @@ class PostsController extends Controller
 
         $imageHashName = request()->file('image')->hashName();
 
-        $imagePath = request()->file('image')->storeAs('/images', $imageHashName , 'public');
+        $imagePath = request()->file('image')->storeAs('/images', $imageHashName, 'public');
 
         $post = auth()->user()->posts()->create([
             'path' => $imagePath
@@ -36,7 +36,7 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
-        if (auth()->id() != $post->owner_id)  {
+        if (auth()->id() != $post->owner_id) {
             abort(403);
         }
 
