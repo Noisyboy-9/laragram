@@ -2,7 +2,9 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Laragram\followingSystem\Follower;
+use App\Laragram\followingSystem\Following;
+use App\Laragram\followingSystem\FollowingStatusManager;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Follower, Following;
 
     /**
      * The attributes that are mass assignable.
@@ -39,7 +41,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     /**
      * A user may have many posts
      *
@@ -49,38 +50,5 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class, 'owner_id');
-    }
-
-
-    /**
-     * A user may be followed by many users
-     * @return BelongsToMany
-     *
-     */
-    public function followers()
-    {
-        return $this->belongsToMany(User::class , 'followings', 'follower' , 'following');
-    }
-
-    /**
-     * A user can follow many users
-     *
-     * @param User $user
-     */
-    public function follow(User $user)
-    {
-        $this->followers()->attach($user);
-    }
-
-
-    /**
-     * Check to see if user is followed
-     *
-     * @param User $user
-     * @return mixed
-     */
-    public function isFollowing(User $user)
-    {
-        return $this->followers->contains($user);
     }
 }
