@@ -14,6 +14,30 @@ class User extends Authenticatable
 {
     use Notifiable, Follower, Following;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (User $user) {
+            $user->username = $user->generateUsername();
+        });
+    }
+
+    /**
+     * generate a hashed username
+     *
+     * @param User $user
+     * @return string
+     */
+    function generateUsername()
+    {
+        $username = bcrypt($this->email);
+
+        $username = preg_replace('/[.\/]/', str_shuffle($this->name), $username) . time();
+
+        return $username;
+    }
+
     /**
      * The attributes that are mass assignable.
      *
